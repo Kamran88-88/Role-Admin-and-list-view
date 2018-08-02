@@ -18,16 +18,20 @@ namespace WindowsFormsApp23
             InitializeComponent();
         }
 
+       
+
+
         private void Save_Click(object sender, EventArgs e)
         {
-            //Form1.Worker worker = new Form1.Worker();
             Form1.worker.Name = textBox1.Text;
             Form1.worker.Surname = textBox2.Text;
             Form1.worker.Age = Convert.ToInt32(textBox3.Text);
-          
-            //Form1 form1 = new Form1();
-            //form1.AddListview(worker);
             Close();
+        }
+
+        private void Form5AddTable_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

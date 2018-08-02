@@ -112,6 +112,7 @@
             this.Controls.Add(this.textBox1);
             this.Name = "Form5AddTable";
             this.Text = "AddTable";
+            this.Load += new System.EventHandler(this.Form5AddTable_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

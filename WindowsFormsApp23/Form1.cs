@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -13,6 +14,8 @@ namespace WindowsFormsApp23
     public partial class Form1 : Form
     {
         public static Worker worker = new Worker();
+        Form5AddTable addTable = new Form5AddTable();
+        FormEdit edit = new FormEdit();
         public Form1()
         {
             InitializeComponent();
@@ -25,6 +28,7 @@ namespace WindowsFormsApp23
         {
             Form2USER form2USER = new Form2USER();
             Form3Manager form3Manager = new Form3Manager();
+            
 
             var a = people.Exists(x => x.Username == textBox1.Text && x.Password == textBox2.Text);
             var b = people.SingleOrDefault(x => x.Username == textBox1.Text && x.Password == textBox2.Text);
@@ -114,10 +118,44 @@ namespace WindowsFormsApp23
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form5AddTable addTable = new Form5AddTable();
-            addTable.Visible = true;
+            
+            addTable.ShowDialog();
             ListViewItem listViewItem = new ListViewItem(new string[] { worker.ID++.ToString(), worker.Name, worker.Surname, worker.Age.ToString() });
             listView1.Items.Add(listViewItem);
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                listView1.SelectedItems[0].Remove();
+                button3.BackColor = Color.WhiteSmoke;
+            }
+            catch (Exception)
+            {
+                button3.BackColor = Color.Red;
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e) //edit
+        {
+            //listView1.SelectedItems[0];
+            edit.GetTextbox1 = listView1.SelectedItems[0].SubItems[1].Text;
+            edit.GetTextbox2 = listView1.SelectedItems[0].SubItems[2].Text;
+            edit.GetTextbox3 = listView1.SelectedItems[0].SubItems[3].Text.ToString();
+            edit.ShowDialog();
+            if (edit.SaveTrue)
+            {
+                listView1.SelectedItems[0].SubItems[1].Text = edit.GetTextbox1;
+                listView1.SelectedItems[0].SubItems[2].Text = edit.GetTextbox2;
+                listView1.SelectedItems[0].SubItems[3].Text = edit.GetTextbox3;
+            }
+            //Close();
         }
     }
 }
